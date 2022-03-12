@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/style.css">
+        <script type="text/javascript" >
+            
+            function get_from_local() {
+                console.log(localStorage.getItem("username"),"llllll")
+                document.getElementById("greeting").innerHTML = "Welcome"+ " "+ localStorage.getItem("username");
+                // debugger;
+                document.getElementById("user").value=localStorage.getItem("username")
+            }
+            window.onload = get_from_local
+                
+            </script>
+    </head>
+    <body >
+        
+        <h1>Project - Milestone 1</h1>
+        <p>{{name}}</p>
+        <p>{{tagline}}</p>
+        <p>{{genres}}</p>
+        <!-- <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"> -->
+        <img src={{url}}>
+        <a href="{{movie_url}}"> Click here to visit the page for {{name}}</a><br><br>
+        <form  method="post" style="display: flex;
+        flex-direction: column;
+    "> 
+            <div >
+            <h2 id="greeting" value=""> </h2>
+            <label for="MovieID">Movie ID</label>
+            <input type="text" name="MovieID" value={{movie_id}} id="MovieID" readonly>
+            <input  name="uname"id="user"  hidden value="">
+            <label for="Rating">Rating (out of 5)</label>
+            <input type="number" name="Rating" min="1" max="5" id="Rating">
+        </div><br><br>
+            <textarea  name="Comment" id="Comment" placeholder="leave a comment"></textarea> <br><br>
+            <input type="submit"  name="Submit" value="Submit">
+
+
+            <h1>See what other people said!</h1>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div >
+                {% for message in messages %}
+                <div style="margin-bottom: 2rem;display: flex;
+                flex-direction: column;
+                align-items: center;">
+                {% for data in message %}
+                
+                <div style="font-size:40; margin-bottom:1rem ;"><b>User: {{ data[4] }}</b></div>
+                <div style="font-size:35; margin-bottom:1rem ;"><b>Rating: {{data[2]}}/5</b></div>
+                <div style="font-size:25; margin-bottom:1rem ;">{{data[3]}}</div>
+                {% endfor %}
+                </div>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+            <a href="{{url_for('bp.newpage')}}">Hey, there is our new page!</a>
+        </form>
+    </body>
+</html>
