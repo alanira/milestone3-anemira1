@@ -42,14 +42,12 @@ def get_data():
         genre.append(movie["genres"][i]["name"])
     genres =", ".join(genre)
     return name, tagline, genres, poster_path, movie_url["query"]["pages"][page_id]["fullurl"],movie_id
+
 def get_config():
     """This function will get configuration data
     to construct a url for a movie image later"""
     response1 = requests.get(base_url1,)
     config_info = response1.json()
-    #print(config_info)
     base_url=config_info["images"]["base_url"]
-    #print(base_url)
     poster_sizes=config_info["images"]["poster_sizes"][3]
-    #print(poster_sizes)
     return base_url, poster_sizes
